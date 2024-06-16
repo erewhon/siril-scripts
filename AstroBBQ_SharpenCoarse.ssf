@@ -1,0 +1,17 @@
+############################################
+#
+# Script for Siril 1.0
+# February 2024
+# By Alan Burgess
+# D2 AstroBBQ_SharpenCoarse v1.0
+#
+########### SHARPENING SCRIPT ###########
+#
+# Script for Applying Unsharp Mask 3 1
+#
+#
+############################################
+
+requires 0.99.4
+
+unsharp 3 1

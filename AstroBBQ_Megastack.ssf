@@ -1,0 +1,34 @@
+############################################
+#
+# Script for Siril 1.0
+# February 2024
+# By Alan Burgess
+# Megastack v1.1
+#
+########### PREPROCESSING SCRIPT ###########
+#
+# Script for Megastacking Substacks
+#
+# Needs 2 or more substacks in 1 directory:
+#   substacks/
+#
+############################################
+
+requires 0.99.4
+
+# Convert Substacks to .fit file
+cd substacks
+convert substacks -out=../process
+cd ../process
+
+# Pre-process Light Frames
+#preprocess substacks 
+
+# Align Substacks
+register substacks
+
+# Stack calibrated lights to result.fit
+stack r_substacks rej 3 3 -norm=addscale -out=../result
+
+cd ..
+close

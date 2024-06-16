@@ -1,0 +1,50 @@
+############################################
+#
+# Script for Siril 1.2
+# By Alan Burgess February 2024
+# AstroBBQ_StackLightsDarks v1.1
+#
+########### PREPROCESSING SCRIPT ###########
+#
+# Script for color camera preprocessing
+#
+# Needs 2 sets of RAW images in the working
+# directory, within 2 directories:
+#   darks/
+#   lights/
+# Saves masters to ./masters/
+#
+############################################
+
+requires 1.2.0
+
+# Convert Dark Frames to .fit files
+cd darks
+convert dark -out=../process
+cd ../process
+
+# Stack Dark Frames to dark_stacked.fit
+stack dark rej 3 3 -nonorm -out=../masters/dark_stacked
+cd ..
+
+# Convert Light Frames to .fit files
+cd lights
+convert light -out=../process
+cd ../process
+
+# Calibrate Light Frames
+calibrate light -dark=../masters/dark_stacked -cc=dark -cfa -equalize_cfa -debayer
+
+# Align lights
+register pp_light
+
+# Stack calibrated lights to result.fit
+stack r_pp_light rej 3 3 -norm=addscale -output_norm -rgb_equal -out=result
+
+# flip if required
+load result
+mirrorx -bottomup
+save ../result
+
+cd ..
+close

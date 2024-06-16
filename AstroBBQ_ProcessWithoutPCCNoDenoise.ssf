@@ -1,0 +1,42 @@
+############################################
+#
+# Script for Siril 1.0
+# February 2024
+# By Alan Burgess
+# D2 AstroBBQ_ProcessWithoutPCCNoDenoise v1.1
+#
+########### AsroBBQ Process Without PCC No Denoise ###########
+#
+# Run initial processes on Linear Stacked Fits File, Use with external noise reduction like NoiseX
+#
+#
+############################################
+
+requires 0.99.4
+
+save "result"
+load "result"
+
+#Desaturate Stars
+unclipstars
+
+#Background Subtraction
+subsky -rbf -dither -samples=20 -tolerance=0.45 -smooth=0.5
+
+#Apply Autostretch
+autostretch -2.8 0.09
+
+#Starnet
+starnet
+save "starless_result"
+
+#Process Stars
+load "starmask_result"
+#not implemented
+save "starmask_result"
+
+#PixelMath Add starmask to starless
+pm "~((~$starless_result$)*(~$starmask_result$))"
+
+#Remove Green
+rmgreen 

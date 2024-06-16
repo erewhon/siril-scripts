@@ -1,0 +1,17 @@
+############################################
+#
+# Script for Siril 1.0
+# February 2024
+# By Alan Burgess
+# D2 AstroBBQ_BlurCoarse v1.0
+#
+########### SHARPENING SCRIPT ###########
+#
+# Script for Applying Gaussian Blur Coarse
+#
+#
+############################################
+
+requires 0.99.4
+
+gauss 1.5
