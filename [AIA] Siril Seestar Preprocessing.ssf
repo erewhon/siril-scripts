@@ -38,7 +38,7 @@ cd ../process
 calibrate light -debayer
 
 # Align lights
-register pp_light -2pass -minpairs=5
+register pp_light -2pass
 seqapplyreg pp_light -filter-round=2.5k
 
 # Stack calibrated lights to result.fit
@@ -49,5 +49,5 @@ mirrorx_single result
 
 #save result using FITS keywords for the name
 load result
-save ../$OBJECT:%s$_$STACKCNT:%d$x$EXPTIME:%d$sec_T$CCD-TEMP:%d$C_$DATE-OBS:dm12$_5stars
+save ../$OBJECT:%s$_$STACKCNT:%d$x$EXPTIME:%d$sec_T$CCD-TEMP:%d$C_$DATE-OBS:dm12$
 close
